@@ -55,38 +55,33 @@ class App extends React.Component {
 
 		return (
 			<View activePanel={this.state.activePanel}>
-				<Panel id="filters">
-					<PanelHeader left={<PanelHeaderButton onClick={ () => this.setState({ activePanel: 'search' })} >Назад</PanelHeaderButton>}>
-						Фильтры
+				<Panel id="search">
+					<PanelHeader>
+						<div style={{textAlign:"center"}}>
+							Акции
+						</div>
 					</PanelHeader>
 					<Group>
 						<FormLayout>
-							<div>
+							<div style={{display: 'flex', alignItems: 'baseline'}}>
 								<Radio name="radio" value="all" onChange={this.handleFilter} defaultChecked={activeFilter === 'all'}>Все</Radio>
 								<Radio name="radio" value="year" onChange={this.handleFilter} defaultChecked={activeFilter === 'year'}>За год</Radio>
 								<Radio name="radio" value="month" onChange={this.handleFilter} defaultChecked={activeFilter === 'month'}>За месяц</Radio>
 							</div>
 						</FormLayout>
-					</Group>
-				</Panel>
-
-				<Panel id="search">
-					<PanelHeader left={<PanelHeaderButton  onClick={ () => this.setState({ activePanel: 'filters' }) }>Фильтры</PanelHeaderButton>}>
-						Поиск
-					</PanelHeader>
-					<Group>
-						<h1>{filters[activeFilter].title}</h1>
 						<CardGrid>
 							{fethedData[activeFilter].stocks.map((stock, index) => {
-								const style = {};
-								if (index === 3 || index === 6) {
+								const style = {
+									width: 'calc(50% - 8px)'
+								};
+								if (index % 2 === 0) {
 									style.marginLeft = 0;
 								}
 
 								return (
 									<Card size="s" mode="outline" key={stock.title} style={style}>
-										<div style={{ padding: '20px', 'textAlign': 'center' }} >
-											<img style={{ height: 100 }} src={`https://shop.finam.ru/${stock.imageUrl}`} alt={stock.title}/>
+										<div style={{ padding: '8px', 'textAlign': 'center' }} >
+											<img style={{ height: 60 }} src={`https://shop.finam.ru/${stock.imageUrl}`} alt={stock.title}/>
 											<h1>{stock.title}</h1>
 											<div><b style={{'fontSize': '20px'}}>{stock.price}</b> <span style={{ color: 'green'}}>{stock.percentChangeFormatted}</span> </div>
 											<Button onClick={ () => this.setState({ activePanel: 'buy1', activeStock: stock }) } style={{'marginTop': '20px'}}>Купить</Button>
@@ -99,7 +94,9 @@ class App extends React.Component {
 				</Panel>
 				<Panel id="buy1">
 					<PanelHeader left={<PanelHeaderButton onClick={ () => this.setState({ activePanel: 'search' })} >Назад</PanelHeaderButton>}>
-						Покупка ценных бумаг (Шаг 1 из 2)
+						<div style={{textAlign:"center"}}>
+							Покупка (1/2)
+						</div>
 					</PanelHeader>
 					<Group style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
 						<Card size="l" mode="outline">
@@ -120,7 +117,9 @@ class App extends React.Component {
 				</Panel>
 				<Panel id="buy2">
 					<PanelHeader left={<PanelHeaderButton onClick={ () => this.setState({ activePanel: 'buy1' })} >Назад</PanelHeaderButton>}>
-						Покупка ценных бумаг (Шаг 2 из 2)
+						<div style={{textAlign:"center"}}>
+							Покупка (1/2)
+						</div>
 					</PanelHeader>
 					<Group style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
 						<Card size="l" mode="outline">
