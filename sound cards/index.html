@@ -74,6 +74,7 @@
     <script>
         const EAT = 'банан.клубника.груша.мороженное.котлета.гречка.кабачок.огурец.морковка.печенье.хлеб.йогурт.макароны.пряник.мандарин';
         const GAME = 'автобус.мячик.качеля.лыжи.мультик';
+        const FILMS = 'малышарики.царевна.бибика.синий трактор.тачки.смешарики.маша и медведь.привет малышь'
 
         const arr = EAT.split('.').concat(GAME.split('.'));
 
@@ -87,6 +88,10 @@
             ).forEach(createListItem);
             $('#list').append('<div>------------------------</div>')
             GAME.split('.').sort().map(item => {
+                return {name: item}}
+            ).forEach(createListItem);
+            $('#list').append('<div>------------------------</div>')
+            FILMS.split('.').sort().map(item => {
                 return {name: item}}
             ).forEach(createListItem);
 
