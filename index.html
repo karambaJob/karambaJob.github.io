@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML 5 Boilerplate</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <style>
+        .wrap {
+            display: flex;
+
+        }
+
+        .item {
+            width: 200px;
+            height: 200px;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid;
+            margin: 4px;
+        }
+
+        .item:hover {
+            border-color: red;
+        }
+
+        .item img {
+            height: 150px;
+        }
+
+    </style>
+    <div class="wrap">
+        <audio id="audio" src="банан.mp3"></audio>
+        <div class="item" onclick="play()">
+            <img src="https://indianspices.ru/images/banan-00.jpg"/>
+            <h2>БАНАН</h2>
+        </div>
+        <div class="item">
+            <img src="https://media-cis-cdn.oriflame.com/contentImage?externalMediaId=6be97f2a-aebd-4b26-9a1c-0b2a9daf72dc&name=Strawberry&inputFormat=png"/>
+            <h2>КЛУБНИКА</h2>
+        </div>
+    </div>
+    <script>
+        document.querySelectorAll('.item').forEach((item) => {
+            console.log('item', item);
+        })
+
+        function play() {
+            var audio = document.getElementById("audio");
+            audio.play();
+        }
+    </script>
+  </body>
+</html>
