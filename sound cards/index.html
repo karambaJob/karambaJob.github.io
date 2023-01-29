@@ -80,7 +80,7 @@
 
         $(() => {
             const createListItem = (item) => {
-                $('#list').append(`<div class="listItem"><label><input checked="1" type="checkbox" data="${item.name}">${item.name}</input></label></div>`)
+                $('#list').append(`<div class="listItem"><label><input  type="checkbox" data="${item.name}">${item.name}</input></label></div>`)
             }
 
             EAT.split('.').sort().map(item => {
