@@ -16,15 +16,19 @@
     <style>
         .wrap {
             display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         .item {
-            width: 200px;
-            height: 200px;
+            width: 35%;
             padding: 16px;
             text-align: center;
             border: 1px solid;
             margin: 4px;
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
         }
 
         .item:hover {
@@ -32,13 +36,18 @@
         }
 
         .item img {
-            height: 150px;
+            width: 100%;
         }
 
         #list {
-            font-size: 18px;
+            font-size: 30px;
+            display: flex;
+            flex-wrap: wrap;
         }
 
+        .listItem {
+            margin: 0 8px 8px;
+        }
     </style>
     <div class="wrap" id="result">
 
@@ -48,15 +57,19 @@
         <button id="create">создать</button>
     </div>
     <script>
-        const DICWORD = [{
-            name: 'банан',
-        }, {
-            name: 'клубника'
-        }];
+        const EAT = 'банан.клубника.груша.мороженное.котлета.гречка.кабачок.огурец.морковка.печенье.хлеб.йогурт.макароны.пряник.мандарин';
+        const GAME = 'автобус.мячик.качеля.лыжи.мультик';
+
+        const arr = EAT.split('.').concat(GAME.split('.'));
+        console.log(arr.sort());
+        const DICWORD = arr.sort().map(item => {
+            console.log('item', item);
+            return {name: item}}
+            );
 
         $(() => {
             DICWORD.forEach(item => {
-                $('#list').append(`<div><label><input type="checkbox" data="${item.name}">${item.name}</input></label></div>`)
+                $('#list').append(`<div class="listItem"><label><input checked="1" type="checkbox" data="${item.name}">${item.name}</input></label></div>`)
             });
 
             $('#create').click(() => {
