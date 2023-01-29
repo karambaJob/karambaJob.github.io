@@ -16,19 +16,30 @@
     <style>
         .wrap {
             display: flex;
-            justify-content: center;
             flex-wrap: wrap;
         }
 
         .item {
-            width: 35%;
-            padding: 16px;
+            width: 40%;
             text-align: center;
             border: 1px solid;
             margin: 4px;
             display: flex;
             flex-direction: column;
             justify-content: end;
+            touch-action: none;
+        }
+
+        #result.grid2 .item {
+            width: 40%;
+        }
+
+        #result.grid3 .item {
+            width: 27%;
+        }
+
+        #result.grid4 .item {
+            width: 19%;
         }
 
         .item:hover {
@@ -50,11 +61,14 @@
             user-select: none;
         }
     </style>
-    <div class="wrap" id="result">
+    <div class="wrap grid2" id="result">
 
     </div>
     <div id="control">
         <div id="list"></div>
+        <label><input type="radio" value="2" name="grid" checked="1"/>2</label><br/><br/>
+        <label><input type="radio" value="3" name="grid"/>3</label><br/><br/>
+        <label><input type="radio" value="4" name="grid"/>4</label><br/>
         <button id="create">создать</button>
     </div>
     <script>
@@ -62,18 +76,25 @@
         const GAME = 'автобус.мячик.качеля.лыжи.мультик';
 
         const arr = EAT.split('.').concat(GAME.split('.'));
-        const DICWORD = arr.sort().map(item => {
-            console.log('item', item);
-            return {name: item}}
-            );
 
         $(() => {
-            DICWORD.forEach(item => {
-                $('#list').append(`<div class="listItem"><label><input  type="checkbox" data="${item.name}">${item.name}</input></label></div>`)
-            });
+            const createListItem = (item) => {
+                $('#list').append(`<div class="listItem"><label><input checked="1" type="checkbox" data="${item.name}">${item.name}</input></label></div>`)
+            }
+
+            EAT.split('.').sort().map(item => {
+                return {name: item}}
+            ).forEach(createListItem);
+            $('#list').append('<div>------------------------</div>')
+            GAME.split('.').sort().map(item => {
+                return {name: item}}
+            ).forEach(createListItem);
 
             $('#create').click(() => {
                 $('#result').html('');
+                $('#result').removeClass('grid2 grid3 grid4')
+                    .addClass('grid' + $('[name="grid"]:checked').val());
+                
                 $('#list :checked').each((i, item) => {
                     const name = $(item).attr('data');
 
