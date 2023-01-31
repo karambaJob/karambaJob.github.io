@@ -28,6 +28,12 @@
             flex-direction: column;
             justify-content: end;
             touch-action: none;
+            box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
+        }
+
+        .item:active {
+            box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+            transform: scale(0.98);
         }
 
         #result.grid2 .item {
@@ -40,10 +46,6 @@
 
         #result.grid4 .item {
             width: 19%;
-        }
-
-        .item:hover {
-            border-color: red;
         }
 
         .item img {
@@ -75,25 +77,32 @@
         const EAT = 'банан.клубника.груша.мороженное.котлета.гречка.кабачок.огурец.морковка.печенье.хлеб.йогурт.макароны.пряник.мандарин';
         const GAME = 'автобус.мячик.качеля.лыжи.мультик';
         const FILMS = 'малышарики.царевна.бибика.синий трактор.тачки.смешарики.маша и медведь.привет малышь'
+        const ACTIONS = 'еще.дай.папа.мама.даня.киса.душ.мыть руки.спать.темно.светло.помоги.кушать'
 
         const arr = EAT.split('.').concat(GAME.split('.'));
 
         $(() => {
-            const createListItem = (item) => {
-                $('#list').append(`<div class="listItem"><label><input  type="checkbox" data="${item.name}">${item.name}</input></label></div>`)
+            const createListItem = (item, checked = 0) => {
+                console.log('checked', checked);
+                $('#list').append(`<div class="listItem"><label><input ${checked ? 'checked="checked"' : ''} type="checkbox" data="${item.name}">${item.name}</input></label></div>`)
             }
 
             EAT.split('.').sort().map(item => {
                 return {name: item}}
-            ).forEach(createListItem);
+            ).forEach((item) => {createListItem(item)});
             $('#list').append('<div>------------------------</div>')
             GAME.split('.').sort().map(item => {
                 return {name: item}}
-            ).forEach(createListItem);
+            ).forEach((item) => {createListItem(item)});
+            
             $('#list').append('<div>------------------------</div>')
             FILMS.split('.').sort().map(item => {
                 return {name: item}}
-            ).forEach(createListItem);
+            ).forEach((item) => {createListItem(item)});
+            $('#list').append('<div>------------------------</div>')
+            ACTIONS.split('.').sort().map(item => {
+                return {name: item}}
+            ).forEach((item) => {createListItem(item, 1)});
 
             $('#create').click(() => {
                 $('#result').html('');
@@ -103,11 +112,11 @@
                 $('#list :checked').each((i, item) => {
                     const name = $(item).attr('data');
 
-                    $('#result').append(`<div class="item" onclick="document.getElementById('audio-${i}').play()">
+                    $('#result').append(`<button class="item" onclick="document.getElementById('audio-${i}').play()">
                         <audio id="audio-${i}" src="./assets/${name}.mp3"></audio>
-                        <img src="./assets/${name}.jpg"/>
+                        <img title="${name}" alt="${name}" src="./assets/${name}.jpg"/>
                         <h2>${name}</h2>
-                    </div>`)
+                    </button>`)
                 })
             });
         })
