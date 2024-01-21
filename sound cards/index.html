@@ -112,6 +112,8 @@
             greenButton.style.background = "green";
             greenButton.style.width = "150px";
             greenButton.style.height = "50px";
+            greenButton.style.color = "white";
+            greenButton.innerHTML = "Включить";
 
             // При нажатии на красную кнопку удаляем соответствующий div
             redButton.addEventListener("click", function() {
@@ -125,7 +127,7 @@
             });
 
             // Добавляем красную и зеленую кнопки внутрь div
-            overlay.appendChild(redButton);
+            //overlay.appendChild(redButton);
             overlay.appendChild(greenButton);
 
             // Добавляем div над iframe
