@@ -66,9 +66,10 @@
     </style>
 
     <div id="experiment">
-        <iframe width="560" height="315" modestbranding="1" src="https://www.youtube.com/embed/1TYl3jhfEDA?si=TCZZBNdDevNg8IVf&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe width="560" height="315" modestbranding="1" src="https://www.youtube.com/embed/1TYl3jhfEDA?si=TCZZBNdDevNg8IVf&amp;controls=0&mute=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         <iframe width="560" height="315" modestbranding="1"src="https://www.youtube.com/embed/lzJi-7pGOfc?si=mbV4YsnbafMSt23u&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         <iframe width="560" height="315" src="https://www.youtube.com/embed/vKOquqNuoNw?si=Dgt7dd0ZpxuOTgY_&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/vlQzGUUgajw?si=dtU1wXwcEXiOU0NO&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
     <div class="wrap grid2" id="result">
 
@@ -92,7 +93,8 @@
             Array.from(iframes).forEach(function(iframe) {
             // Создаем div с белым полупрозрачным фоном
             var overlay = document.createElement("div");
-            overlay.style.background = "rgba(255, 255, 255, 0)";
+            
+            overlay.style.background = "#e5e82999";
             overlay.style.position = "absolute";
             overlay.style.top = iframe.offsetTop + "px";
             overlay.style.left = iframe.offsetLeft + "px";
@@ -122,7 +124,7 @@
 
             // При нажатии на зеленую кнопку удаляем соответствующий div
             greenButton.addEventListener("click", function() {
-                // overlay.style.display = "none";
+                overlay.style.display = "none";
                 iframe.src += "&autoplay=1";
             });
 
