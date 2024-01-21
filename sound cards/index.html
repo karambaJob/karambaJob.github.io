@@ -56,6 +56,7 @@
             font-size: 30px;
             display: flex;
             flex-wrap: wrap;
+            flex-direction: column;
         }
 
         .listItem {
@@ -63,6 +64,11 @@
             user-select: none;
         }
     </style>
+
+    <div id="experiment">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/1TYl3jhfEDA?si=TCZZBNdDevNg8IVf&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/lzJi-7pGOfc?si=mbV4YsnbafMSt23u&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
     <div class="wrap grid2" id="result">
 
     </div>
@@ -74,6 +80,58 @@
         <button id="create">создать</button>
     </div>
     <script>
+        function videoStopExperiment() {
+            // Получаем элемент "experiment"
+            var experiment = document.getElementById("experiment");
+
+            // Получаем все iframe внутри элемента "experiment"
+            var iframes = experiment.getElementsByTagName("iframe");
+
+            // Проходим по каждому iframe
+            Array.from(iframes).forEach(function(iframe) {
+            // Создаем div с белым полупрозрачным фоном
+            var overlay = document.createElement("div");
+            overlay.style.background = "rgba(255, 255, 255, 0.2)";
+            overlay.style.position = "absolute";
+            overlay.style.top = iframe.offsetTop + "px";
+            overlay.style.left = iframe.offsetLeft + "px";
+            overlay.style.width = iframe.offsetWidth + "px";
+            overlay.style.height = iframe.offsetHeight + "px";
+            overlay.style.display = 'flex';
+            overlay.style['justify-content'] = 'space-around';
+
+            // Создаем красную кнопку
+            var redButton = document.createElement("button");
+            redButton.style.background = "red";
+            redButton.style.width = "150px";
+            redButton.style.height = "50px";
+            
+            // Создаем зеленую кнопку
+            var greenButton = document.createElement("button");
+            greenButton.style.background = "green";
+            greenButton.style.width = "150px";
+            greenButton.style.height = "50px";
+
+            // При нажатии на красную кнопку удаляем соответствующий div
+            redButton.addEventListener("click", function() {
+                overlay.style.display = "none";
+            });
+
+            // При нажатии на зеленую кнопку удаляем соответствующий div
+            greenButton.addEventListener("click", function() {
+                overlay.style.display = "none";
+            });
+
+            // Добавляем красную и зеленую кнопки внутрь div
+            overlay.appendChild(redButton);
+            overlay.appendChild(greenButton);
+
+            // Добавляем div над iframe
+            experiment.appendChild(overlay);
+            });
+        }
+
+
         const EAT = 'банан.клубника.груша.мороженное.котлета.гречка.кабачок.огурец.морковка.печенье.хлеб.йогурт.макароны.пряник.мандарин';
         const GAME = 'автобус.мячик.качеля.лыжи.мультик';
         const FILMS = 'малышарики.царевна.бибика.синий трактор.тачки.смешарики.маша и медведь.привет малышь'
@@ -82,8 +140,9 @@
         const arr = EAT.split('.').concat(GAME.split('.'));
 
         $(() => {
+            videoStopExperiment();
+            return;
             const createListItem = (item, checked = 0) => {
-                console.log('checked', checked);
                 $('#list').append(`<div class="listItem"><label><input ${checked ? 'checked="checked"' : ''} type="checkbox" data="${item.name}">${item.name}</input></label></div>`)
             }
 
