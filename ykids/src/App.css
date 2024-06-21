@@ -1,0 +1,144 @@
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+::-webkit-scrollbar:vertical {
+  width: 12px;
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 234, 0, 0.8);
+  border-radius: 10px;
+  border: 2px solid #ffffff;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+html, body {
+  overflow: hidden;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+.main {
+  display: flex; flex-direction: column; height: 100vh;
+}
+
+.userUnactive .controls {
+  display: none;
+}
+
+.controls {
+  height: 250px; display: flex;
+}
+
+.previewWrap {
+}
+
+.grid {
+  grid-auto-flow: column;
+  display: grid;
+  overflow-x: auto;
+  height: 100%;
+  grid-template-rows: repeat(3, 33%);
+  overflow-y: hidden;
+}
+
+.preview {
+  flex-shrink: 0;
+  display: flex;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: 10px solid black;
+  width: 230px;
+  height: 100%;
+}
+
+.empty {
+  border: 0;
+}
+
+.preview.selected {
+  border: 10px solid green;
+}
+
+.preview.active {
+  border: 10px solid green;
+  animation: blink 1s linear infinite;
+}
+
+.settings {
+  position: absolute;
+  bottom: 0;
+}
+
+@keyframes blink {
+  0% {
+      border-color: rgb(0, 0, 0);
+      /* border-wisdth: 10px; */
+  }
+  50% {
+      border-color: rgb(0, 129, 0);
+      /* border-width: 15px; */
+  }
+  100% {
+      /* border-width: 10px; */
+      border-color: rgb(0, 0, 0);
+  }
+}
+
+.soundBut {
+  margin-left: 30px;
+}
+
+.userUnactive .play, .userUnactive .soundBut {
+  display: none;
+}
+
+.play {
+  border: 0;
+  background: transparent;
+  box-sizing: border-box;
+  width: 0;
+  height: 74px;
+
+  border-color: transparent transparent transparent rgba(255,255,255,.7);
+  transition: 100ms all ease;
+  cursor: pointer;
+
+  border-style: solid;
+  border-width: 37px 0 37px 60px;
+
+  &.paused {
+    border-style: double;
+    border-width: 0px 0 0px 60px;
+  }
+
+  &:hover {
+    border-color: transparent transparent transparent rgba(255,255,255,.7);
+  }
+}
+
+.backButton {
+  position: absolute;
+  top: 10px;
+  display: flex;
+  align-items: center;
+  left: 0;
+  width: 100px;
+  height: 80px;
+  background: #00000082;
+  z-index: 1000;
+  text-align: center;
+  justify-content: center;
+}
