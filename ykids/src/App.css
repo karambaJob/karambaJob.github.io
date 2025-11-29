@@ -142,3 +142,31 @@ html, body {
   text-align: center;
   justify-content: center;
 }
+
+.playerLayer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0 ,0, 0);
+  z-index: 111;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.playerLayer.dark {
+  background: rgba(1, 1, 1, 1);
+}
+
+.taskWrap {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.919);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
