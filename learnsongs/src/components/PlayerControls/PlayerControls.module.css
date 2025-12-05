@@ -1,0 +1,134 @@
+.playerControls {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 0;
+  background-color: white;
+  border-top: 1px solid #eee;
+}
+
+.modeSelector {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.modeButton {
+  background-color: #f5f5f5;
+  color: #333;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.modeButton:hover {
+  background-color: #e0e0e0;
+}
+
+.modeButton.active {
+  background-color: #4A90E2;
+  color: white;
+}
+
+.playbackControls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.controlButton {
+  background-color: #f5f5f5;
+  color: #333;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.controlButton:hover {
+  background-color: #e0e0e0;
+}
+
+.playButton {
+  background-color: #4A90E2;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.playButton:hover {
+  background-color: #357ABD;
+}
+
+.playButton.playing {
+  background-color: #FFD700;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .playerControls {
+    gap: 15px;
+    padding: 15px 0;
+  }
+  
+  .modeButton {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+  
+  .controlButton {
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
+  }
+  
+  .playButton {
+    width: 60px;
+    height: 60px;
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .modeSelector {
+    flex-wrap: wrap;
+  }
+  
+  .modeButton {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+  
+  .controlButton {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  
+  .playButton {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+}

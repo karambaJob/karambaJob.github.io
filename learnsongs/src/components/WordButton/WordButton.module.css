@@ -1,0 +1,55 @@
+.wordButton {
+  background-color: #4A90E2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 15px 20px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  min-width: 100px;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.wordButton:hover {
+  background-color: #357ABD;
+  transform: scale(1.05);
+}
+
+.wordButton:active {
+  transform: scale(0.95);
+}
+
+.wordButton.active {
+  background-color: #FFD700;
+  color: #333;
+  transform: scale(1.1);
+}
+
+.wordButton:focus {
+  outline: 3px solid #FFD700;
+  outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+  .wordButton {
+    padding: 12px 16px;
+    font-size: 1.3rem;
+    min-width: 90px;
+    min-height: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wordButton {
+    padding: 10px 12px;
+    font-size: 1.2rem;
+    min-width: 80px;
+    min-height: 40px;
+  }
+}
