@@ -1,5 +1,5 @@
 import React from 'react';
-import { SongConfig, SongSelectorProps } from '../../types/song';
+import { SongSelectorProps } from '../../types/song';
 import styles from './SongSelector.module.css';
 
 const SongSelector: React.FC<SongSelectorProps> = ({ 
