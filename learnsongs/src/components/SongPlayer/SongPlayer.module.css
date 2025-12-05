@@ -98,6 +98,27 @@
   text-align: center;
 }
 
+.retryButton {
+  background-color: #D32F2F;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.retryButton:hover {
+  background-color: #B71C1C;
+}
+
+.loading {
+  text-align: center;
+  padding: 15px;
+  color: #4A90E2;
+  font-style: italic;
+}
+
 @media (max-width: 768px) {
   .songPlayer {
     padding: 15px;

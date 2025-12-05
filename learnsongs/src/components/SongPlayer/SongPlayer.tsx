@@ -6,24 +6,33 @@ import PlayerControls from '../PlayerControls/PlayerControls';
 import styles from './SongPlayer.module.css';
 
 const SongPlayer: React.FC<SongPlayerProps> = ({ song, onBack }) => {
-  const { 
-    isAudioReady, 
-    audioError, 
-    activeWordId, 
-    isPlaying, 
-    playMode, 
+  const {
+    isAudioReady,
+    audioError,
+    activeWordId,
+    isPlaying,
+    playMode,
     preloadSongAudio,
     playWord,
     playLine,
     playSong,
     stopPlayback,
-    setPlayMode
+    setPlayMode,
+    resetSongLoading,
+    isLoading
   } = useAudio();
 
   // Preload audio when song changes
   useEffect(() => {
-    preloadSongAudio(song);
-  }, [song, preloadSongAudio]);
+    if (song && !isAudioReady && !isLoading) {
+      preloadSongAudio(song);
+    }
+  }, [song, preloadSongAudio, isAudioReady, isLoading]);
+
+  // Find which line contains the active word
+  const activeLineIndex = activeWordId 
+    ? song.lines.findIndex(line => line.some(word => word.id === activeWordId))
+    : -1;
 
   const handleWordClick = (wordId: string) => {
     if (playMode === 'word') {
@@ -55,6 +64,14 @@ const SongPlayer: React.FC<SongPlayerProps> = ({ song, onBack }) => {
     setPlayMode(mode);
   };
 
+  const handleRetry = () => {
+    resetSongLoading(song.id);
+    // Small delay to ensure state is reset before retrying
+    setTimeout(() => {
+      preloadSongAudio(song);
+    }, 100);
+  };
+
   return (
     <div className={styles.songPlayer} role="main" aria-label={`Воспроизведение песни: ${song.title}`}>
       <div className={styles.header}>
@@ -81,6 +98,15 @@ const SongPlayer: React.FC<SongPlayerProps> = ({ song, onBack }) => {
       {audioError && (
         <div className={styles.error} role="alert" aria-live="assertive">
           Ошибка загрузки аудио: {audioError}
+          <button onClick={handleRetry} className={styles.retryButton}>
+            Повторить попытку
+          </button>
+        </div>
+      )}
+
+      {isLoading && (
+        <div className={styles.loading} role="status">
+          Загрузка аудио...
         </div>
       )}
 
@@ -90,8 +116,9 @@ const SongPlayer: React.FC<SongPlayerProps> = ({ song, onBack }) => {
             <Line
               key={lineIndex}
               words={line}
-              activeWordId={activeWordId}
+              activeWordId={activeWordId || undefined}
               onWordClick={handleWordClick}
+              isActive={lineIndex === activeLineIndex}
             />
           ))}
         </div>

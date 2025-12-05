@@ -7,13 +7,15 @@
   font-size: 1.4rem;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s ease-in-out;
   min-width: 100px;
   min-height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  transform: scale(1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .wordButton:hover {
@@ -23,12 +25,16 @@
 
 .wordButton:active {
   transform: scale(0.95);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-.wordButton.active {
-  background-color: #FFD700;
-  color: #333;
-  transform: scale(1.1);
+.wordButton:active {
+  background-color: #FFD700; /* Gold color for active state */
+  color: #333; /* Dark text for better contrast */
+  transform: scale(1.25); /* More pronounced scaling */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 10; /* Ensure it's above other elements */
+  position: relative; /* Required for z-index to work */
 }
 
 .wordButton:focus {

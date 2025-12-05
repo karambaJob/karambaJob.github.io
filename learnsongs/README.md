@@ -1,184 +1,69 @@
-# LearnSongs
+# LearnSongs - Приложение для изучения песен
 
-An interactive web application for children to learn songs through visual and audio cues.
+Интерактивное веб-приложение для обучения детей песням через визуальные и звуковые подсказки.
 
-## Features
+## Особенности
 
-- Interactive song lyrics with audio playback
-- Multiple playback modes (word, line, song)
-- Tablet-optimized responsive design
-- Accessibility compliant (WCAG 2.1 AA)
-- Web Audio API with HTML5 Audio fallback
-- SpeechSynthesis fallback for missing audio files
+- Интерактивные кнопки слов с аудио воспроизведением
+- Три режима воспроизведения: слово, строка, песня
+- Адаптивный дизайн, оптимизированный для планшетов
+- Поддержка доступности (WCAG 2.1 AA)
+- Прелоадинг аудиофайлов для минимальной задержки
+- Резервный вариант с SpeechSynthesis при недоступности аудиофайлов
 
-## Development
+## Технологии
 
-This project is built with:
-- React 18+ with TypeScript
-- Vite for fast development
-- CSS Modules for styling
-- Web Audio API for audio playback
+- React 18+ с функциональными компонентами и хуками
+- TypeScript для строгой типизации
+- CSS Modules для стилизации
+- Web Audio API с HTML5 Audio fallback
 
-### Project Structure
+## Установка и запуск
 
-```
-learnsongs/
-├── public/
-│   └── audio/              # Audio files for songs
-├── src/
-│   ├── components/         # React components
-│   ├── providers/          # React context providers
-│   ├── types/             # TypeScript type definitions
-│   ├── data/              # Sample data and configuration
-│   └── App.tsx            # Main application component
-├── package.json           # Project dependencies and scripts
-├── tsconfig.json          # TypeScript configuration
-└── vite.config.ts         # Vite configuration
-```
-
-### Components
-
-1. **AudioProvider** - Manages audio context and playback state
-2. **SongSelector** - Displays available songs for selection
-3. **SongPlayer** - Main playback interface for selected song
-4. **Line** - Displays a line of words
-5. **WordButton** - Interactive button for each word
-6. **PlayerControls** - Controls for playback and mode selection
-
-### Audio System
-
-The application uses the Web Audio API for high-quality audio playback with HTML5 Audio as a fallback. All audio files for a song are preloaded when the song is selected to ensure minimal playback delay.
-
-### Playback Modes
-
-1. **Word Mode** - Click individual words to play them
-2. **Line Mode** - Click any word in a line to play the entire line
-3. **Song Mode** - Play the entire song sequentially
-
-### Accessibility Features
-
-- WCAG 2.1 AA compliance
-- Keyboard navigation support
-- Screen reader compatibility
-- High contrast color scheme
-- Focus indicators for interactive elements
-
-## Setup
-
-### Prerequisites
-
-- Node.js (version 16 or higher)
-- npm (version 8 or higher)
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   ```
-
-2. Navigate to the project directory:
-   ```bash
-   cd learnsongs
-   ```
-
-3. Install dependencies:
+1. Установите зависимости:
    ```bash
    npm install
    ```
 
-### Development
+2. Запустите приложение в режиме разработки:
+   ```bash
+   npm run dev
+   ```
 
-To start the development server:
+3. Сборка для продакшена:
+   ```bash
+   npm run build
+   ```
 
-```bash
-npm run dev
+4. Предварительный просмотр продакшен сборки:
+   ```bash
+   npm run preview
+   ```
+
+## Структура проекта
+
+```
+src/
+├── types/              # TypeScript типы
+├── data/               # Конфигурационные данные
+├── hooks/              # Пользовательские хуки
+├── components/         # React компоненты
+├── providers/          # React провайдеры
+├── utils/              # Вспомогательные функции
+├── App.tsx             # Корневой компонент
+└── main.tsx            # Точка входа
 ```
 
-The application will be available at `http://localhost:5173`
+## Добавление новых песен
 
-### Building for Production
+1. Добавьте аудиофайлы в папку `public/audio/`
+2. Создайте конфигурацию песни в `src/data/config.ts`
+3. Импортируйте и добавьте песню в массив `songs`
 
-To create a production build:
+## Примечание о аудиофайлах
 
-```bash
-npm run build
-```
+В текущей реализации используется один аудиофайл для всей песни. Для полноценной работы с отдельными словами необходимо создать аудиофайлы для каждого слова. В качестве временного решения используется SpeechSynthesis API для воспроизведения отдельных слов.
 
-The built files will be in the `dist` directory.
+## Лицензия
 
-### Previewing Production Build
-
-To preview the production build locally:
-
-```bash
-npm run preview
-```
-
-## Adding New Songs
-
-To add new songs to the application:
-
-1. Add audio files to the `public/audio/` directory
-2. Update the song configuration in `src/data/config.ts`
-3. Ensure each word has a corresponding audio file
-
-### Song Configuration Format
-
-```typescript
-const appConfig: AppConfig = {
-  songs: [
-    {
-      id: "unique-identifier",
-      title: "Song Title",
-      lines: [
-        [
-          { text: "Word", audio: "/audio/path/to/audio.mp3", id: "unique-word-id" },
-          // ... more words
-        ],
-        // ... more lines
-      ],
-      metadata: {
-        difficulty: "easy" | "medium" | "hard",
-        duration: 30, // in seconds
-        tags: ["tag1", "tag2"]
-      }
-    }
-  ],
-  defaultSongId: "identifier"
-};
-```
-
-## Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-
-The application is optimized for tablet use with touch-friendly interface elements.
-
-## Error Handling
-
-The application includes comprehensive error handling:
-- Audio loading errors with fallbacks
-- SpeechSynthesis fallback for missing audio files
-- Graceful degradation for unsupported features
-
-## Performance
-
-- Audio preloading for minimal playback delay
-- Efficient React component rendering
-- Memory management for audio resources
-- Responsive design for all device sizes
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License.
+MIT

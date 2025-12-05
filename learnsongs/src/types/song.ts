@@ -54,3 +54,20 @@ export interface PlayerControlsProps {
   onPrevious: () => void;
   onNext: () => void;
 }
+
+export interface AudioContextValue {
+  isAudioReady: boolean;
+  audioError: string | null;
+  activeWordId: string | null;
+  isPlaying: boolean;
+  playMode: 'word' | 'line' | 'song';
+  audioBuffers: Map<string, AudioBuffer>;
+  preloadSongAudio: (song: SongConfig) => Promise<void>;
+  playWord: (wordId: string) => void;
+  playLine: (wordIds: string[]) => void;
+  playSong: (song: SongConfig) => void;
+  stopPlayback: () => void;
+  setPlayMode: (mode: 'word' | 'line' | 'song') => void;
+  resetSongLoading: (songId: string) => void;
+  isLoading: boolean;
+}

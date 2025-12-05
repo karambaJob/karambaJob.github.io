@@ -14,6 +14,8 @@ interface AudioContextValue {
   playSong: (song: SongConfig) => void;
   stopPlayback: () => void;
   setPlayMode: (mode: 'word' | 'line' | 'song') => void;
+  resetSongLoading: (songId: string) => void;
+  isLoading: boolean;
 }
 
 const AudioContext = createContext<AudioContextValue | undefined>(undefined);
@@ -38,6 +40,9 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [playMode, setPlayMode] = useState<'word' | 'line' | 'song'>('word');
   const [audioBuffers, setAudioBuffers] = useState<Map<string, AudioBuffer>>(new Map());
+  const [loadedSongs, setLoadedSongs] = useState<Set<string>>(new Set());
+  const [loadingAttempts, setLoadingAttempts] = useState<Map<string, number>>(new Map());
+  const [isLoading, setIsLoading] = useState(false);
 
   // Initialize audio context
   useEffect(() => {
@@ -65,17 +70,46 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
 
   // Preload all audio files for a song
   const preloadSongAudio = useCallback(async (song: SongConfig) => {
+    // Check if song is valid
+    if (!song) {
+      return;
+    }
+
+    // Check if already loading
+    if (isLoading) {
+      return;
+    }
+
+    // Check if song is already loaded
+    if (loadedSongs.has(song.id)) {
+      return;
+    }
+
+    // Check if we've exceeded retry attempts
+    const attempts = loadingAttempts.get(song.id) || 0;
+    const MAX_ATTEMPTS = 3;
+    if (attempts >= MAX_ATTEMPTS) {
+      setAudioError(`Не удалось загрузить песню "${song.title}" после ${MAX_ATTEMPTS} попыток`);
+      return;
+    }
+
     if (!audioContext) {
       setAudioError('Аудиосистема не готова');
       return;
     }
 
+    setIsLoading(true);
     try {
       setAudioError(null);
       const newBuffers = new Map(audioBuffers);
       const words = song.lines.flat();
       let loadedCount = 0;
       let errorCount = 0;
+
+      // Update attempts
+      const newAttempts = new Map(loadingAttempts);
+      newAttempts.set(song.id, attempts + 1);
+      setLoadingAttempts(newAttempts);
 
       const loadPromises = words.map(async (word) => {
         try {
@@ -99,13 +133,25 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
       if (errorCount > 0) {
         setAudioError(`Не удалось загрузить ${errorCount} из ${words.length} аудиофайлов`);
       } else {
+        // Mark song as loaded successfully
+        const newLoadedSongs = new Set(loadedSongs);
+        newLoadedSongs.add(song.id);
+        setLoadedSongs(newLoadedSongs);
+        
+        // Reset attempts for this song since it loaded successfully
+        const newAttempts = new Map(loadingAttempts);
+        newAttempts.delete(song.id);
+        setLoadingAttempts(newAttempts);
+        
         setAudioError(null);
       }
     } catch (error) {
       console.error('Failed to preload audio:', error);
       setAudioError('Не удалось загрузить аудиофайлы');
+    } finally {
+      setIsLoading(false);
     }
-  }, [audioContext, audioBuffers]);
+  }, [audioContext, audioBuffers, loadedSongs, loadingAttempts, isLoading]);
 
   // Play a single word's audio
   const playWord = useCallback((wordId: string) => {
@@ -142,12 +188,12 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
       setActiveWordId(null);
       setIsPlaying(false);
     };
-    source.onerror = (error) => {
+    source.addEventListener('error', (error) => {
       console.error('Audio playback error:', error);
       setAudioError('Ошибка воспроизведения аудио');
       setActiveWordId(null);
       setIsPlaying(false);
-    };
+    });
     source.start();
   }, [audioContext, isAudioReady, audioBuffers]);
 
@@ -182,11 +228,11 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
           currentIndex++;
           playNextWord();
         };
-        source.onerror = (error) => {
+        source.addEventListener('error', (error) => {
           console.error('Audio playback error:', error);
           currentIndex++;
           playNextWord();
-        };
+        });
         source.start();
       } else {
         // Try SpeechSynthesis fallback
@@ -253,11 +299,11 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
           currentWordIndex++;
           playNextWord();
         };
-        source.onerror = (error) => {
+        source.addEventListener('error', (error) => {
           console.error('Audio playback error:', error);
           currentWordIndex++;
           playNextWord();
-        };
+        });
         source.start();
       } else {
         // Try SpeechSynthesis fallback
@@ -290,6 +336,20 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
     setIsPlaying(false);
   }, []);
 
+  // Reset loading state for a song (to allow retrying)
+  const resetSongLoading = useCallback((songId: string) => {
+    const newLoadedSongs = new Set(loadedSongs);
+    newLoadedSongs.delete(songId);
+    setLoadedSongs(newLoadedSongs);
+    
+    const newAttempts = new Map(loadingAttempts);
+    newAttempts.delete(songId);
+    setLoadingAttempts(newAttempts);
+    
+    // Also reset any audio error
+    setAudioError(null);
+  }, [loadedSongs, loadingAttempts]);
+
   const value = {
     isAudioReady,
     audioError,
@@ -302,7 +362,9 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
     playLine,
     playSong,
     stopPlayback,
-    setPlayMode
+    setPlayMode,
+    resetSongLoading,
+    isLoading
   };
 
   return (
