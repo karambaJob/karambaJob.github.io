@@ -35,7 +35,17 @@
    npm run build
    ```
 
-4. Предварительный просмотр продакшен сборки:
+4. Сборка с пользовательским базовым URL:
+   ```bash
+   npm run build
+   ```
+
+   С указанием конкретного URL:
+   ```bash
+   npx cross-env BASE_URL=/my-app/ npm run build
+   ```
+
+5. Предварительный просмотр продакшен сборки:
    ```bash
    npm run preview
    ```
