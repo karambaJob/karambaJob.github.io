@@ -179,17 +179,17 @@ const appConfig: AppConfig = {
       title: "Синий трактор",
       lines: [
         [
-          { text: "Что", audio: "/audio/tractor/chto.mp3", id: "t1" },
-          { text: "ты", audio: "/audio/tractor/ty.mp3", id: "t2" },
-          { text: "делал", audio: "/audio/tractor/delal.mp3", id: "t3" },
-          { text: "Синий", audio: "/audio/tractor/sinii.mp3", id: "t4" },
-          { text: "трактор", audio: "/audio/tractor/traktor.mp3", id: "t5" }
+          { text: "Что", audio: "/audio/tractor/1.mp3", id: "t1" },
+          { text: "ты", audio: "/audio/tractor/2.mp3", id: "t2" },
+          { text: "делал", audio: "/audio/tractor/3.mp3", id: "t3" },
+          { text: "Синий", audio: "/audio/tractor/4.mp3", id: "t4" },
+          { text: "трактор", audio: "/audio/tractor/5.mp3", id: "t5" }
         ],
         [
-          { text: "Ездил", audio: "/audio/tractor/ezdil.mp3", id: "t6" },
-          { text: "по", audio: "/audio/tractor/po.mp3", id: "t7" },
-          { text: "каким", audio: "/audio/tractor/kakim.mp3", id: "t8" },
-          { text: "делам", audio: "/audio/tractor/delam.mp3", id: "t9" }
+          { text: "Ездил", audio: "/audio/tractor/6.mp3", id: "t6" },
+          { text: "по", audio: "/audio/tractor/7.mp3", id: "t7" },
+          { text: "каким", audio: "/audio/tractor/8.mp3", id: "t8" },
+          { text: "делам", audio: "/audio/tractor/9.mp3", id: "t9" }
         ]
       ],
       metadata: {
