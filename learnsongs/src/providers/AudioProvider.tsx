@@ -140,7 +140,12 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
 
       const loadPromises = words.map(async (word) => {
         try {
-          const response = await fetch(word.audio);
+          // Get base URL from environment or use default
+          const baseUrl = import.meta.env.BASE_URL || '/';
+          // Construct full URL with base URL
+          const audioUrl = baseUrl === '/learnsongs/dist/' ? word.audio : `${baseUrl}${word.audio}`;
+          
+          const response = await fetch(audioUrl);
           if (!response.ok) {
             throw new Error(`HTTP ${response.status}: ${response.statusText}`);
           }
