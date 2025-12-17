@@ -4,9 +4,11 @@ import App from './App';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 
+const baseUrl = import.meta.env.BASE_URL || '/learnsongs/dist/';
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={baseUrl}>
       <App />
     </BrowserRouter>
   </React.StrictMode>,
