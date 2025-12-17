@@ -44,17 +44,43 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
   const [loadingAttempts, setLoadingAttempts] = useState<Map<string, number>>(new Map());
   const [isLoading, setIsLoading] = useState(false);
 
-  // Initialize audio context
+  // Initialize audio context on user interaction
   useEffect(() => {
     const initAudioContext = async () => {
       try {
+        // Check if AudioContext is supported
+        if (!(window.AudioContext || (window as any).webkitAudioContext)) {
+          throw new Error('Web Audio API не поддерживается в этом браузере');
+        }
+        
         const context = new (window.AudioContext || (window as any).webkitAudioContext)();
-        setAudioContext(context);
-        setIsAudioReady(true);
-        setAudioError(null);
+        
+        // Wait for the context to be ready
+        if (context.state === 'suspended') {
+          // Resume on user interaction
+          const resumeContext = async () => {
+            await context.resume();
+            setAudioContext(context);
+            setIsAudioReady(true);
+            setAudioError(null);
+            // Remove event listeners after successful resume
+            document.removeEventListener('click', resumeContext);
+            document.removeEventListener('touchstart', resumeContext);
+            document.removeEventListener('keydown', resumeContext);
+          };
+          
+          // Add event listeners for user interaction
+          document.addEventListener('click', resumeContext);
+          document.addEventListener('touchstart', resumeContext);
+          document.addEventListener('keydown', resumeContext);
+        } else {
+          setAudioContext(context);
+          setIsAudioReady(true);
+          setAudioError(null);
+        }
       } catch (error) {
         console.error('Failed to initialize AudioContext:', error);
-        setAudioError('Не удалось инициализировать аудиосистему');
+        setAudioError('Не удалось инициализировать аудиосистему: ' + (error as Error).message);
         setIsAudioReady(false);
       }
     };
@@ -70,6 +96,7 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
 
   // Preload all audio files for a song
   const preloadSongAudio = useCallback(async (song: SongConfig) => {
+    console.log('Preloading song audio...', song);
     // Check if song is valid
     if (!song) {
       return;
@@ -93,7 +120,7 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
       return;
     }
 
-    if (!audioContext) {
+    if (!audioContext || audioContext.state === 'suspended') {
       setAudioError('Аудиосистема не готова');
       return;
     }
@@ -155,7 +182,7 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
 
   // Play a single word's audio
   const playWord = useCallback((wordId: string) => {
-    if (!audioContext || !isAudioReady) {
+    if (!audioContext || audioContext.state === 'suspended' || !isAudioReady) {
       setAudioError('Аудиосистема не готова');
       return;
     }
@@ -199,7 +226,7 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
 
   // Play a sequence of words
   const playLine = useCallback((wordIds: string[]) => {
-    if (!audioContext || !isAudioReady) {
+    if (!audioContext || audioContext.state === 'suspended' || !isAudioReady) {
       setAudioError('Аудиосистема не готова');
       return;
     }
@@ -262,7 +289,7 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
 
   // Play an entire song
   const playSong = useCallback((song: SongConfig) => {
-    if (!audioContext || !isAudioReady) {
+    if (!audioContext || audioContext.state === 'suspended' || !isAudioReady) {
       setAudioError('Аудиосистема не готова');
       return;
     }

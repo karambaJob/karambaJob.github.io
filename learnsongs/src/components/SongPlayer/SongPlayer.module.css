@@ -119,6 +119,14 @@
   font-style: italic;
 }
 
+.loading:first-of-type {
+  background-color: #E3F2FD;
+  border: 2px dashed #4A90E2;
+  border-radius: 8px;
+  font-weight: bold;
+  font-style: normal;
+}
+
 @media (max-width: 768px) {
   .songPlayer {
     padding: 15px;

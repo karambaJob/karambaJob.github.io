@@ -40,6 +40,7 @@ const preloadAudio = async (song: SongConfig): Promise<Map<string, AudioBuffer>>
 ```typescript
 // Play a single word's audio
 const playWordAudio = (wordId: string, buffers: Map<string, AudioBuffer>): void => {
+  console.log(`Playing word ${wordId}`);
   const buffer = buffers.get(wordId);
   if (!buffer) return;
   

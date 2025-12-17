@@ -24,7 +24,7 @@ const SongPlayer: React.FC<SongPlayerProps> = ({ song, onBack }) => {
 
   // Preload audio when song changes
   useEffect(() => {
-    if (song && !isAudioReady && !isLoading) {
+    if (song && isAudioReady && !isLoading) {
       preloadSongAudio(song);
     }
   }, [song, preloadSongAudio, isAudioReady, isLoading]);
@@ -35,6 +35,7 @@ const SongPlayer: React.FC<SongPlayerProps> = ({ song, onBack }) => {
     : -1;
 
   const handleWordClick = (wordId: string) => {
+    console.log(`Word clicked: ${wordId}`);
     if (playMode === 'word') {
       playWord(wordId);
     } else if (playMode === 'line') {
@@ -101,6 +102,12 @@ const SongPlayer: React.FC<SongPlayerProps> = ({ song, onBack }) => {
           <button onClick={handleRetry} className={styles.retryButton}>
             Повторить попытку
           </button>
+        </div>
+      )}
+
+      {!isAudioReady && (
+        <div className={styles.loading} role="status">
+          Нажмите anywhere на странице, чтобы включить аудио
         </div>
       )}
 
