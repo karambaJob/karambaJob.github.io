@@ -45,6 +45,38 @@ export const appConfig: AppConfig = {
         duration: 30,
         tags: ["транспорт", "животные"]
       }
+    },
+    {
+      id: "ded-moroz",
+      title: "Дед мороз несет игрушки",
+      lines: [
+        [
+          { text: "Дед", audio: "/audio/ded-moroz/ded.mp3", id: "Дед" },
+          { text: "мороз", audio: "/audio/ded-moroz/moroz.mp3", id: "мороз" },
+          { text: "несет", audio: "/audio/ded-moroz/neset.mp3", id: "несет" },
+          { text: "игрушки", audio: "/audio/ded-moroz/igrushki.mp3", id: "игрушки" }
+        ],
+        [
+          { text: "И", audio: "/audio/ded-moroz/i.mp3", id: "И" },
+          { text: "гирлянды", audio: "/audio/ded-moroz/girlyandy.mp3", id: "гирлянды" },
+          { text: "и", audio: "/audio/ded-moroz/i2.mp3", id: "и" },
+          { text: "хлопушки", audio: "/audio/ded-moroz/hlopushki.mp3", id: "хлопушки" }
+        ],
+        [
+          { text: "Хороши", audio: "/audio/ded-moroz/horoshi.mp3", id: "Хороши" },
+          { text: "подарки", audio: "/audio/ded-moroz/podarki.mp3", id: "подарки" }
+        ],
+        [
+          { text: "Будет", audio: "/audio/ded-moroz/budet.mp3", id: "Будет" },
+          { text: "праздник", audio: "/audio/ded-moroz/prazdnik.mp3", id: "праздник" },
+          { text: "яркий", audio: "/audio/ded-moroz/yarkiy.mp3", id: "яркий" }
+        ]
+      ],
+      metadata: {
+        difficulty: "easy",
+        duration: 20,
+        tags: ["новый год", "праздник"]
+      }
     }
   ],
   defaultSongId: "tractor"
