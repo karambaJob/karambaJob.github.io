@@ -2,6 +2,7 @@ export interface Word {
   text: string;      // Отображаемый текст
   audio: string;     // Путь к аудиофайлу
   id: string;        // Уникальный идентификатор
+  image?: string;     // Путь к изображению (опционально)
 }
 
 export interface SongConfig {
@@ -47,12 +48,12 @@ export interface LineProps {
 
 export interface PlayerControlsProps {
   isPlaying: boolean;
-  playMode: 'word' | 'line' | 'song';
+  playMode: 'word' | 'line' | 'song' | 'single';
   onPlay: () => void;
   onPause: () => void;
-  onModeChange: (mode: 'word' | 'line' | 'song') => void;
-  onPrevious: () => void;
-  onNext: () => void;
+  onModeChange: (mode: 'word' | 'line' | 'song' | 'single') => void;
+  onPrevious?: () => void;
+  onNext?: () => void;
 }
 
 export interface AudioContextValue {
@@ -60,14 +61,14 @@ export interface AudioContextValue {
   audioError: string | null;
   activeWordId: string | null;
   isPlaying: boolean;
-  playMode: 'word' | 'line' | 'song';
+  playMode: 'word' | 'line' | 'song' | 'single';
   audioBuffers: Map<string, AudioBuffer>;
   preloadSongAudio: (song: SongConfig) => Promise<void>;
   playWord: (wordId: string) => void;
   playLine: (wordIds: string[]) => void;
   playSong: (song: SongConfig) => void;
   stopPlayback: () => void;
-  setPlayMode: (mode: 'word' | 'line' | 'song') => void;
+  setPlayMode: (mode: 'word' | 'line' | 'song' | 'single') => void;
   resetSongLoading: (songId: string) => void;
   isLoading: boolean;
 }

@@ -31,6 +31,14 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({
           Строка
         </button>
         <button
+          className={`${styles.modeButton} ${playMode === 'single' ? styles.active : ''}`}
+          onClick={() => onModeChange('single')}
+          aria-pressed={playMode === 'single'}
+          aria-label="Режим воспроизведения по одной строке"
+        >
+          Одна строка
+        </button>
+        <button
           className={`${styles.modeButton} ${playMode === 'song' ? styles.active : ''}`}
           onClick={() => onModeChange('song')}
           aria-pressed={playMode === 'song'}
@@ -41,9 +49,10 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({
       </div>
 
       <div className={styles.playbackControls}>
-        <button 
-          className={styles.controlButton} 
+        <button
+          className={styles.controlButton}
           onClick={onPrevious}
+          disabled={!onPrevious}
           aria-label="Предыдущее"
         >
           ←
@@ -55,9 +64,10 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({
         >
           {isPlaying ? '❚❚' : '▶'}
         </button>
-        <button 
-          className={styles.controlButton} 
+        <button
+          className={styles.controlButton}
           onClick={onNext}
+          disabled={!onNext}
           aria-label="Следующее"
         >
           →

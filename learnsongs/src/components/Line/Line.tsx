@@ -9,15 +9,17 @@ interface LineComponentProps extends LineProps {
 
 const Line: React.FC<LineComponentProps> = ({ words, activeWordId, onWordClick, isActive }) => {
   return (
-    <div className={`${styles.line} ${isActive ? styles.activeLine : styles.inactiveLine}`} role="row">
-      {words.map((word) => (
-        <WordButton
-          key={word.id}
-          word={word}
-          isActive={word.id === activeWordId}
-          onClick={() => onWordClick(word.id)}
-        />
-      ))}
+    <div className={`${styles.lineContainer} ${isActive ? styles.activeLine : styles.inactiveLine}`}>
+      <div className={styles.line} role="row">
+        {words.map((word) => (
+          <WordButton
+            key={word.id}
+            word={word}
+            isActive={word.id === activeWordId}
+            onClick={() => onWordClick(word.id)}
+          />
+        ))}
+      </div>
     </div>
   );
 };

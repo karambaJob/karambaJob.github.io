@@ -89,13 +89,40 @@
   padding: 20px 0;
 }
 
+.errorContainer {
+  position: relative;
+  margin-bottom: 20px;
+}
+
 .error {
   background-color: #FFEBEE;
   color: #D32F2F;
   padding: 15px;
   border-radius: 8px;
-  margin-bottom: 20px;
   text-align: center;
+  margin: 0;
+}
+
+.closeButton {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #D32F2F;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeButton:hover {
+  background-color: rgba(211, 47, 47, 0.1);
+  border-radius: 50%;
 }
 
 .retryButton {
@@ -140,4 +167,50 @@
     padding: 8px 12px;
     font-size: 0.9rem;
   }
+}
+
+.singleLineContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 20px 0;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.navButton {
+  background: #4A90E2;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+  min-width: 40px;
+}
+
+.navButton:hover:not(:disabled) {
+  background: #357ABD;
+}
+
+.navButton:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.lineCounter {
+  font-size: 1rem;
+  color: #666;
+  min-width: 60px;
+  text-align: center;
 }

@@ -6,14 +6,14 @@ interface AudioContextValue {
   audioError: string | null;
   activeWordId: string | null;
   isPlaying: boolean;
-  playMode: 'word' | 'line' | 'song';
+  playMode: 'word' | 'line' | 'song' | 'single';
   audioBuffers: Map<string, AudioBuffer>;
   preloadSongAudio: (song: SongConfig) => Promise<void>;
   playWord: (wordId: string) => void;
   playLine: (wordIds: string[]) => void;
   playSong: (song: SongConfig) => void;
   stopPlayback: () => void;
-  setPlayMode: (mode: 'word' | 'line' | 'song') => void;
+  setPlayMode: (mode: 'word' | 'line' | 'song' | 'single') => void;
   resetSongLoading: (songId: string) => void;
   isLoading: boolean;
 }
@@ -38,7 +38,7 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
   const [audioError, setAudioError] = useState<string | null>(null);
   const [activeWordId, setActiveWordId] = useState<string | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [playMode, setPlayMode] = useState<'word' | 'line' | 'song'>('word');
+  const [playMode, setPlayMode] = useState<'word' | 'line' | 'song' | 'single'>('word');
   const [audioBuffers, setAudioBuffers] = useState<Map<string, AudioBuffer>>(new Map());
   const [loadedSongs, setLoadedSongs] = useState<Set<string>>(new Set());
   const [loadingAttempts, setLoadingAttempts] = useState<Map<string, number>>(new Map());
