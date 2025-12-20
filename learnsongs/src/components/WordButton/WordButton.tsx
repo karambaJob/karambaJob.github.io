@@ -17,7 +17,7 @@ const WordButton: React.FC<WordButtonProps> = ({ word, isActive, onClick }) => {
       {hasImage ? (
         <>
           <img
-            src={word.image}
+            src={`${import.meta.env.BASE_URL || ''}${word.image}`}
             alt={word.text}
             className={styles.wordImage}
             onError={(e) => {
