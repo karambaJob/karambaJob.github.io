@@ -6,7 +6,7 @@ const WordButton: React.FC<WordButtonProps> = ({ word, isActive, onClick }) => {
   const hasImage = !!word.image;
   
   const baseUrl = import.meta.env.BASE_URL;
-  const imageUrl = baseUrl === '/' ? word.image : `${baseUrl}${word.audio}`;
+  const imageUrl = baseUrl === '/' ? word.image : `${baseUrl}${word.image}`;
   
   return (
     <button
