@@ -5,6 +5,9 @@ import styles from './WordButton.module.css';
 const WordButton: React.FC<WordButtonProps> = ({ word, isActive, onClick }) => {
   const hasImage = !!word.image;
   
+  const baseUrl = import.meta.env.BASE_URL;
+  const imageUrl = baseUrl === '/' ? word.image : `${baseUrl}${word.audio}`;
+  
   return (
     <button
       className={`${styles.wordButton} ${isActive ? styles.active : ''} ${hasImage ? styles.withImage : ''}`}
@@ -17,7 +20,7 @@ const WordButton: React.FC<WordButtonProps> = ({ word, isActive, onClick }) => {
       {hasImage ? (
         <>
           <img
-            src={`${import.meta.env.BASE_URL || ''}${word.image}`}
+            src={`${imageUrl}`}
             alt={word.text}
             className={styles.wordImage}
             onError={(e) => {

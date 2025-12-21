@@ -56,19 +56,19 @@ export const appConfig: AppConfig = {
           { text: "игрушки", audio: "/audio/ded-moroz/3.mp3", id: "игрушки", image: "/images/ded-moroz/3.jfif" }
         ],
         [
-          { text: "И", audio: "/audio/ded-moroz/4.mp3", id: "И", image: "/images/ded-moroz/4.png" },
+          { text: "И", audio: "/audio/ded-moroz/4.mp3", id: "И1", image: "/images/ded-moroz/4.png" },
           { text: "гирлянды", audio: "/audio/ded-moroz/5.mp3", id: "гирлянды", image: "/images/ded-moroz/5.jfif" },
-          { text: "и", audio: "/audio/ded-moroz/6.mp3", id: "и", image: "/images/ded-moroz/4.png" },
-          { text: "хлопушки", audio: "/audio/ded-moroz/7.mp3", id: "хлопушки", image: "/images/ded-moroz/6.jfif" }
+          { text: "и", audio: "/audio/ded-moroz/4.mp3", id: "и2", image: "/images/ded-moroz/4.png" },
+          { text: "хлопушки", audio: "/audio/ded-moroz/6.mp3", id: "хлопушки", image: "/images/ded-moroz/6.jfif" }
         ],
         [
-          { text: "Хороши", audio: "/audio/ded-moroz/8.mp3", id: "Хороши", image: "/images/ded-moroz/8.png" },
-          { text: "подарки", audio: "/audio/ded-moroz/9.mp3", id: "подарки", image: "/images/ded-moroz/9.jfif" }
+          { text: "Хороши", audio: "/audio/ded-moroz/7.mp3", id: "Хороши", image: "/images/ded-moroz/8.png" },
+          { text: "подарки", audio: "/audio/ded-moroz/8.mp3", id: "подарки", image: "/images/ded-moroz/9.jfif" }
         ],
         [
-          { text: "Праздник", audio: "/audio/ded-moroz/10.mp3", id: "праздник", image: "/images/ded-moroz/10.jfif" },
-          { text: "Будет", audio: "/audio/ded-moroz/11.mp3", id: "Будет", image: "/images/ded-moroz/11.png" },
-          { text: "яркий", audio: "/audio/ded-moroz/12.mp3", id: "яркий", image: "/images/ded-moroz/12.png" }
+          { text: "Праздник", audio: "/audio/ded-moroz/9.mp3", id: "праздник", image: "/images/ded-moroz/10.jfif" },
+          { text: "Будет", audio: "/audio/ded-moroz/10.mp3", id: "Будет", image: "/images/ded-moroz/11.png" },
+          { text: "яркий", audio: "/audio/ded-moroz/11.mp3", id: "яркий", image: "/images/ded-moroz/12.png" }
         ]
       ],
       metadata: {
